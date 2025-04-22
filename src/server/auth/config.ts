@@ -42,6 +42,13 @@ export const authConfig = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
+      async authorize(credentials){
+        try {
+          const {email, password} = await loginSchema.parse(credentials);
+        } catch(error) {
+          return null
+        }
+      }
       
     })
     /**
