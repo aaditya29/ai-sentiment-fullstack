@@ -46,6 +46,12 @@ export const authConfig = {
       async authorize(credentials){
         try {
           const {email, password} = await loginSchema.parse(credentials);
+          const user = await db.user.findUnique({
+            where: { email },
+          });
+          if (!user || !user.password) {
+            return null;
+          }
         } catch(error) {
           return null
         }
