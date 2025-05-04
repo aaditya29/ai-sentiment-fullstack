@@ -52,6 +52,17 @@ export const authConfig = {
           if (!user || !user.password) {
             return null;
           }
+          const isValid = await bcrypt.compare(password, user.password);
+
+          if (!isValid) {
+            return null;
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+          };
         } catch(error) {
           return null
         }
